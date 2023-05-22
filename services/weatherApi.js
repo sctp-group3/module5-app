@@ -8,7 +8,6 @@ const baseAPI = axios.create({ baseURL: BASE_URL });
 const proAPI = axios.create({ baseURL: PRO_URL });
 
 const formatApiResponse = (data, searchParams) => {
-  console.log(data);
   let {
     coord: { lat, lon },
     main: { feels_like, temp, temp_min, temp_max, humidity },
