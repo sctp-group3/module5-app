@@ -6,6 +6,7 @@ import CurrentDisplay from "./components/CurrentDisplay";
 import WeatherContext from "./contexts/WeatherContext";
 import getUrl from "./services/weatherApi";
 import { LinearGradient } from "expo-linear-gradient";
+import Card from "./components/Card";
 
 export default function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -52,11 +53,11 @@ export default function App() {
       <View style={styles.header}>
         <SearchBar onSubmit={onSubmit} />
       </View>
-      <View style={styles.currentDisplayContainer}>
+      <Card>
         <ScrollView>
           {weatherData && <CurrentDisplay weather={weatherData.current} />}
         </ScrollView>
-      </View>
+      </Card>
     </LinearGradient>
   );
 }
