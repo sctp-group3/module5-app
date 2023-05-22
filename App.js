@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Platform } from "react-native";
+import { StyleSheet, ScrollView, View, Platform } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import CurrentDisplay from "./components/CurrentDisplay";
 import WeatherContext from "./contexts/WeatherContext";
 import getUrl from "./services/weatherApi";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -41,42 +42,40 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={["#3B82F6", "#06B6D4"]}
+      style={styles.gradient}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+    >
       <StatusBar />
       <View style={styles.header}>
         <SearchBar onSubmit={onSubmit} />
       </View>
-      <View style={styles.currentDisplayContainer1}>
-        <View style={styles.currentDisplayContainer2}>
+      <View style={styles.currentDisplayContainer}>
+        <ScrollView>
           {weatherData && <CurrentDisplay weather={weatherData.current} />}
-        </View>
+        </ScrollView>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  gradient: {
     flex: 1,
-    backgroundColor: "#b2e4f7",
-    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 10,
   },
   header: {
     width: "100%",
-    backgroundColor: "#466995",
     height: 120,
   },
   searchBarContainer: {
     // accounting for status bar height on android
     // Make sure searchBarContainer is on top
   },
-  currentDisplayContainer1: {
-    flex: 1,
-    padding: 20,
-    alignContent: "center",
-    justifyContent: "center",
-  },
-  currentDisplayContainer2: {
+  currentDisplayContainer: {
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
     elevation: 4,
-    padding: 15,
+    padding: 35,
     margin: 10, // React Native uses logical pixels, you might have to adjust the padding
     backgroundColor: "#fff", // 75% white
     opacity: 0.75,
