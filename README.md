@@ -1,5 +1,3 @@
-Certainly! Here's the README file in Markdown format:
-
 # Weather App
 
 The Weather App is a mobile application developed using React Native. It allows users to search for weather information for a specific city and displays the current weather conditions along with additional details.
