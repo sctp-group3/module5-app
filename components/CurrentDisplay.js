@@ -129,7 +129,8 @@ const styles = StyleSheet.create({
   detailItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginRight: 20,
+    marginRight: 10,
+    padding: 10,
   },
   detailIcon: {
     fontSize: 20,
