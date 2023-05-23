@@ -17,7 +17,7 @@ const Screen = ({ children }) => (
 const styles = StyleSheet.create({
   gradient: {
     flex: 1,
-    padding: 100,
+    padding: 30,
   },
 });
 
