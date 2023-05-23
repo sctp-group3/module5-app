@@ -1,27 +1,40 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, ScrollView, View, Platform } from "react-native";
+import { StyleSheet, StatusBar, View } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
-import SearchBar from "./components/SearchBar";
-import CurrentDisplay from "./components/CurrentDisplay";
 import WeatherContext from "./contexts/WeatherContext";
 import getUrl from "./services/weatherApi";
-import { LinearGradient } from "expo-linear-gradient";
-import Card from "./components/Card";
+import CurrentWeatherScreen from "./screens/CurrentWeatherScreen";
+import DailyWeatherScreen from "./screens/DailyWeatherScreen";
+import HourlyWeatherScreen from "./screens/HourlyWeatherScreen";
+import { BottomNavigation, Text, PaperProvider } from "react-native-paper";
+import Header from "./components/Header";
+import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 
 export default function App() {
+  const [index, setIndex] = React.useState(0);
   const [weatherData, setWeatherData] = useState(null);
   const [targetCity, setTargetCity] = useState(null);
+  const [routes] = React.useState([
+    { key: "currentWeather", title: "Current", focusedIcon: "cloud" },
+    { key: "hourlyWeather", title: "Hourly", focusedIcon: "clock" },
+    { key: "dailyWeather", title: "Daily", focusedIcon: "calendar" },
+  ]);
 
   const ctx = useContext(WeatherContext);
 
-  const fetchWeatherData = async () => {
+  const renderScene = BottomNavigation.SceneMap({
+    currentWeather: () => <CurrentWeatherScreen weatherData={weatherData} />,
+    hourlyWeather: () => <HourlyWeatherScreen weatherData={weatherData} />,
+    dailyWeather: () => <DailyWeatherScreen weatherData={weatherData} />,
+  });
+  const fetchWeatherData = async (city) => {
     try {
       const searchParam = {
-        ...targetCity,
+        ...city,
         units: ctx?.isMetric ? "metric" : "imperial",
       };
       const data = await getUrl(searchParam);
       setWeatherData(data);
+      console.log("data :", data);
     } catch (error) {
       console.log(error);
     }
@@ -29,65 +42,38 @@ export default function App() {
 
   useEffect(() => {
     if (targetCity) {
-      fetchWeatherData();
+      console.log("item :", targetCity);
+      fetchWeatherData(targetCity);
     }
   }, [targetCity]);
 
-  useEffect(() => {
-    console.log("weatherData :", weatherData);
-  }, [weatherData]);
-
   const onSubmit = (item) => {
     setTargetCity(item);
-    console.log("weatherData :", weatherData);
   };
 
   return (
-    <LinearGradient
-      colors={["#3B82F6", "#06B6D4"]}
-      style={styles.gradient}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-    >
-      <StatusBar />
-      <View style={styles.header}>
-        <SearchBar onSubmit={onSubmit} />
-      </View>
-      <Card>
-        <ScrollView>
-          {weatherData && <CurrentDisplay weather={weatherData.current} />}
-        </ScrollView>
-      </Card>
-    </LinearGradient>
+    <AutocompleteDropdownContextProvider>
+      <PaperProvider>
+        <StatusBar barStyle="default" />
+        <View style={styles.container}>
+          <Header onSubmit={onSubmit} />
+          <BottomNavigation
+            navigationState={{ index, routes }}
+            onIndexChange={setIndex}
+            renderScene={renderScene}
+          />
+        </View>
+      </PaperProvider>
+    </AutocompleteDropdownContextProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  gradient: {
+  container: {
     flex: 1,
-    justifyContent: "flex-start",
-    padding: 10,
-  },
-  header: {
-    width: "100%",
-    height: 120,
-  },
-  searchBarContainer: {
-    // accounting for status bar height on android
-    // Make sure searchBarContainer is on top
-  },
-  currentDisplayContainer: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-    padding: 35,
-    margin: 10, // React Native uses logical pixels, you might have to adjust the padding
-    backgroundColor: "#fff", // 75% white
-    opacity: 0.75,
+
+    //Debug
+    // borderColor: "red",
+    // borderWidth: 2,
   },
 });
