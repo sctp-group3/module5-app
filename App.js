@@ -1,10 +1,13 @@
-import { StyleSheet, StatusBar } from "react-native";
+import { StyleSheet, StatusBar, View } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import WeatherContext from "./contexts/WeatherContext";
 import getUrl from "./services/weatherApi";
 import CurrentWeatherScreen from "./screens/CurrentWeatherScreen";
+import DailyWeatherScreen from "./screens/DailyWeatherScreen";
+import HourlyWeatherScreen from "./screens/HourlyWeatherScreen";
 import { BottomNavigation, Text, PaperProvider } from "react-native-paper";
 import Header from "./components/Header";
+import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 
 export default function App() {
   const [index, setIndex] = React.useState(0);
@@ -16,18 +19,12 @@ export default function App() {
     { key: "dailyWeather", title: "Daily", focusedIcon: "calendar" },
   ]);
 
-  const currentWeatherRoute = () => (
-    <CurrentWeatherScreen weatherData={weatherData} />
-  );
-  const hourlyForecastRoute = () => <Text>Hourly Forecast</Text>;
-
-  const dailyForecastRoute = () => <Text>Daily Forecast</Text>;
-
   const ctx = useContext(WeatherContext);
+
   const renderScene = BottomNavigation.SceneMap({
-    currentWeather: currentWeatherRoute,
-    hourlyWeather: hourlyForecastRoute,
-    dailyWeather: dailyForecastRoute,
+    currentWeather: () => <CurrentWeatherScreen weatherData={weatherData} />,
+    hourlyWeather: () => <HourlyWeatherScreen weatherData={weatherData} />,
+    dailyWeather: () => <DailyWeatherScreen weatherData={weatherData} />,
   });
   const fetchWeatherData = async (city) => {
     try {
@@ -55,20 +52,28 @@ export default function App() {
   };
 
   return (
-    <PaperProvider>
-      <StatusBar barStyle="default" />
-      <Header onSubmit={onSubmit} />
-      <BottomNavigation
-        navigationState={{ index, routes }}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-      />
-    </PaperProvider>
+    <AutocompleteDropdownContextProvider>
+      <PaperProvider>
+        <StatusBar barStyle="default" />
+        <View style={styles.container}>
+          <Header onSubmit={onSubmit} />
+          <BottomNavigation
+            navigationState={{ index, routes }}
+            onIndexChange={setIndex}
+            renderScene={renderScene}
+          />
+        </View>
+      </PaperProvider>
+    </AutocompleteDropdownContextProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
+    //Debug
+    // borderColor: "red",
+    // borderWidth: 2,
   },
 });

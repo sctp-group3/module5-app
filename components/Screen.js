@@ -16,8 +16,10 @@ const Screen = ({ children }) => (
 
 const styles = StyleSheet.create({
   gradient: {
+    padding: 20,
+    justifyContent: "center",
+
     flex: 1,
-    padding: 30,
   },
 });
 

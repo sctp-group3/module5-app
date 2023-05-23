@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import SearchBar from "./SearchBar";
 
 const Header = ({ onSubmit }) => {
@@ -12,11 +12,10 @@ const Header = ({ onSubmit }) => {
 
 const styles = StyleSheet.create({
   header: {
-    width: "100%",
-
     backgroundColor: "#F5F5F5",
-    height: 100,
-    padding: 18,
+    padding: 10,
+    justifyContent: "flex-start",
+    width: "100%",
   },
 });
 
