@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import cityData from "../data/cities.json";
 import { Ionicons } from "@expo/vector-icons";
+import WeatherContext from "../contexts/WeatherContext";
 
 const SearchBar = ({ onSubmit }) => {
   const [suggestionsList, setSuggestionsList] = useState([]);
-
+  const ctx = useContext(WeatherContext);
   const filterData = (query) => {
     if (!query) {
       return [];
@@ -34,7 +35,7 @@ const SearchBar = ({ onSubmit }) => {
       return;
     }
     setSuggestionsList([]);
-    onSubmit(item);
+    onSubmit({ ...item, units: ctx.isMetric ? "metric" : "imperial" });
   };
 
   return (
