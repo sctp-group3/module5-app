@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import SearchBar from "./SearchBar";
 import CurrentLocationButton from "./CurrentLocationButton";
 import FavoritesDialog from "./FavouritesDialog";
+import WeatherContext from "../contexts/WeatherContext";
 
 const Header = ({ onSubmit }) => {
+  const ctx = useContext(WeatherContext);
+
+  const handleSubmit = (item) => {
+    const itemUnitOverride = {
+      ...item,
+      units: ctx.isMetric ? "metric" : "imperial",
+    };
+    onSubmit(itemUnitOverride);
+  };
+
   return (
     <View style={styles.header}>
       <View style={{ flex: 1 }}>
-        <SearchBar onSubmit={onSubmit} />
+        <SearchBar onSubmit={handleSubmit} />
       </View>
-      <CurrentLocationButton onSubmit={onSubmit} />
-      <FavoritesDialog onSubmit={onSubmit} />
+      <CurrentLocationButton onSubmit={handleSubmit} />
+      <FavoritesDialog onSubmit={handleSubmit} />
     </View>
   );
 };
