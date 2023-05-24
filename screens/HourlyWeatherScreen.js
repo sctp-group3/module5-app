@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text } from "react-native-paper";
 import Screen from "../components/Screen";
 import { StyleSheet, View, Image, FlatList } from "react-native";
+import WeatherContext from "../contexts/WeatherContext";
 
 const HourlyWeatherScreen = ({ weatherData }) => {
+  const ctx = useContext(WeatherContext);
+
   return (
     <Screen>
       <Text style={styles.subtitle}>Hourly Forecast</Text>
@@ -19,7 +22,7 @@ const HourlyWeatherScreen = ({ weatherData }) => {
               <View style={styles.hour}>
                 <Text>{dt.toLocaleTimeString().replace(/:\d+ /, " ")}</Text>
                 <Text>
-                  {Math.round(((hour.item.main.temp - 32) * 5) / 9)}°C
+                  {hour.item.main.temp.toFixed(1)}{ctx?.isMetric ? "°C" : "°F"}
                 </Text>
                 <Image
                   style={styles.smallIcon}
