@@ -26,6 +26,7 @@ export default function App() {
     hourlyWeather: () => <HourlyWeatherScreen weatherData={weatherData} />,
     dailyWeather: () => <DailyWeatherScreen weatherData={weatherData} />,
   });
+
   const fetchWeatherData = async (city) => {
     try {
       const searchParam = {
@@ -71,9 +72,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     //Debug
     // borderColor: "red",
     // borderWidth: 2,
   },
 });
+
