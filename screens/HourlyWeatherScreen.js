@@ -22,7 +22,8 @@ const HourlyWeatherScreen = ({ weatherData }) => {
               <View style={styles.hour}>
                 <Text>{dt.toLocaleTimeString().replace(/:\d+ /, " ")}</Text>
                 <Text>
-                  {hour.item.main.temp.toFixed(1)}{ctx?.isMetric ? "°C" : "°F"}
+                  {hour.item.main.temp.toFixed(1)}
+                  {ctx?.isMetric ? "°C" : "°F"}
                 </Text>
                 <Image
                   style={styles.smallIcon}
