@@ -1,21 +1,26 @@
 import React from "react";
 import { Text } from "react-native-paper";
 import Screen from "../components/Screen";
-import { StyleSheet, View, Image, FlatList } from 'react-native';
+import { StyleSheet, View, Image, FlatList } from "react-native";
 
 const HourlyWeatherScreen = ({ weatherData }) => {
   return (
     <Screen>
       <Text style={styles.subtitle}>Hourly Forecast</Text>
-          <FlatList horizontal
-            data={weatherData.hourly.list}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={(hour) => {
-              const weather = hour.item.weather[0];
-              var dt = new Date(hour.item.dt * 1000);
-              return <View style={styles.hour}>
-                <Text>{dt.toLocaleTimeString().replace(/:\d+ /, ' ')}</Text>
-                <Text>{Math.round((hour.item.main.temp - 32) * 5/9)}°C</Text>
+      {weatherData && (
+        <FlatList
+          horizontal
+          data={weatherData.hourly.list}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={(hour) => {
+            const weather = hour.item.weather[0];
+            var dt = new Date(hour.item.dt * 1000);
+            return (
+              <View style={styles.hour}>
+                <Text>{dt.toLocaleTimeString().replace(/:\d+ /, " ")}</Text>
+                <Text>
+                  {Math.round(((hour.item.main.temp - 32) * 5) / 9)}°C
+                </Text>
                 <Image
                   style={styles.smallIcon}
                   source={{
@@ -24,8 +29,10 @@ const HourlyWeatherScreen = ({ weatherData }) => {
                 />
                 <Text>{weather.description}</Text>
               </View>
-            }}
-          />
+            );
+          }}
+        />
+      )}
     </Screen>
   );
 };
@@ -35,16 +42,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginVertical: 12,
     marginLeft: 4,
-    color: '#e96e50',
+    color: "#e96e50",
   },
   hour: {
     padding: 6,
-    alignItems: 'center',
+    alignItems: "center",
   },
   smallIcon: {
     width: 100,
     height: 100,
-  }
+  },
 });
 
 export default HourlyWeatherScreen;
