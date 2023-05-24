@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import SearchBar from "./SearchBar";
 import CurrentLocationButton from "./CurrentLocationButton";
+import FavoritesDialog from "./FavouritesDialog";
 
 const Header = ({ onSubmit }) => {
   return (
@@ -10,6 +11,7 @@ const Header = ({ onSubmit }) => {
         <SearchBar onSubmit={onSubmit} />
       </View>
       <CurrentLocationButton onSubmit={onSubmit} />
+      <FavoritesDialog onSubmit={onSubmit} />
     </View>
   );
 };
