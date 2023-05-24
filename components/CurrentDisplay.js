@@ -4,7 +4,7 @@ import { Feather as Icon } from "@expo/vector-icons"; // or any suitable icon li
 import UnitsSelector from "./UnitsSelector";
 import WeatherContext from "../contexts/WeatherContext";
 
-const CurrentDisplay = ({ weather }) => {
+const CurrentDisplay = ({ weather, targetCity, onSubmit }) => {
   const ctx = useContext(WeatherContext);
   console.log("weather :", weather);
 
@@ -28,7 +28,10 @@ const CurrentDisplay = ({ weather }) => {
                 <Text style={styles.temperature}>
                   {weather.temp.toFixed(1)}
                 </Text>
-                {/* <UnitsSelector /> */}
+                <UnitsSelector
+                  targetCity={targetCity}
+                  onSubmit={onSubmit}
+                />
               </View>
             </View>
           </View>

@@ -8,6 +8,7 @@ import HourlyWeatherScreen from "./screens/HourlyWeatherScreen";
 import { BottomNavigation, Text, PaperProvider } from "react-native-paper";
 import Header from "./components/Header";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
+import { WeatherProvider } from "./contexts/WeatherContext";
 
 export default function App() {
   const [index, setIndex] = React.useState(0);
@@ -22,7 +23,13 @@ export default function App() {
   const ctx = useContext(WeatherContext);
 
   const renderScene = BottomNavigation.SceneMap({
-    currentWeather: () => <CurrentWeatherScreen weatherData={weatherData} />,
+    currentWeather: () => (
+      <CurrentWeatherScreen
+        weatherData={weatherData}
+        targetCity={targetCity}
+        onSubmit={onSubmit}
+      />
+    ),
     hourlyWeather: () => <HourlyWeatherScreen weatherData={weatherData} />,
     dailyWeather: () => <DailyWeatherScreen weatherData={weatherData} />,
   });
@@ -30,7 +37,7 @@ export default function App() {
     try {
       const searchParam = {
         ...city,
-        units: ctx?.isMetric ? "metric" : "imperial",
+        // units: ctx?.isMetric ? "metric" : "imperial",
       };
       const data = await getUrl(searchParam);
       setWeatherData(data);
@@ -52,19 +59,21 @@ export default function App() {
   };
 
   return (
-    <AutocompleteDropdownContextProvider>
-      <PaperProvider>
-        <StatusBar barStyle="default" />
-        <View style={styles.container}>
-          <Header onSubmit={onSubmit} />
-          <BottomNavigation
-            navigationState={{ index, routes }}
-            onIndexChange={setIndex}
-            renderScene={renderScene}
-          />
-        </View>
-      </PaperProvider>
-    </AutocompleteDropdownContextProvider>
+    <WeatherProvider>
+      <AutocompleteDropdownContextProvider>
+        <PaperProvider>
+          <StatusBar barStyle="default" />
+          <View style={styles.container}>
+            <Header onSubmit={onSubmit} />
+            <BottomNavigation
+              navigationState={{ index, routes }}
+              onIndexChange={setIndex}
+              renderScene={renderScene}
+            />
+          </View>
+        </PaperProvider>
+      </AutocompleteDropdownContextProvider>
+    </WeatherProvider>
   );
 }
 

@@ -5,7 +5,7 @@ import CurrentDisplay from "../components/CurrentDisplay";
 import Screen from "../components/Screen";
 import * as Animatable from "react-native-animatable";
 
-const CurrentWeatherScreen = ({ weatherData }) => {
+const CurrentWeatherScreen = ({ weatherData, targetCity, onSubmit }) => {
   return (
     <Screen>
       <Card style={styles.container}>
@@ -14,7 +14,11 @@ const CurrentWeatherScreen = ({ weatherData }) => {
             {!weatherData && <Text>No city selected</Text>}
             {weatherData && (
               <ScrollView>
-                <CurrentDisplay weather={weatherData.current} />
+                <CurrentDisplay
+                  weather={weatherData.current}
+                  targetCity={targetCity}
+                  onSubmit={onSubmit}
+                />
               </ScrollView>
             )}
           </Card.Content>
