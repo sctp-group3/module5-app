@@ -9,7 +9,7 @@ const CurrentWeatherScreen = ({ weatherData, targetCity, onSubmit }) => {
   return (
     <Screen>
       <Card style={styles.container}>
-        <Animatable.View animation="fadeIn" duration={500} delay={200}>
+        <Animatable.View animation="fadeInRight" duration={300} delay={100}>
           <Card.Content>
             {!weatherData && <Text>No city selected</Text>}
             {weatherData && (
