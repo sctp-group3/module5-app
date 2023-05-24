@@ -15,10 +15,16 @@ const formatApiResponse = (data, searchParams) => {
     weather: {
       0: { description, icon },
     },
+    sys: { country },
+    name: backupName,
   } = data;
+
+  console.log(data);
   const state = searchParams.state ? ` ${searchParams.state},` : "";
   const zip = searchParams.zip ? ` (${searchParams.zip})` : "";
-  const name = `${searchParams.name},${state} ${searchParams.country}${zip}`;
+  const nameOverride = searchParams.name || backupName;
+  const countryOverride = searchParams.country || country;
+  const name = `${nameOverride},${state} ${countryOverride}${zip}`;
   return {
     name,
     lat,

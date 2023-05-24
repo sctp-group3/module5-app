@@ -1,11 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import SearchBar from "./SearchBar";
+import CurrentLocationButton from "./CurrentLocationButton";
 
 const Header = ({ onSubmit }) => {
   return (
     <View style={styles.header}>
-      <SearchBar onSubmit={onSubmit} />
+      <View style={{ flex: 1 }}>
+        <SearchBar onSubmit={onSubmit} />
+      </View>
+      <CurrentLocationButton onSubmit={onSubmit} />
     </View>
   );
 };
@@ -15,6 +19,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5",
     padding: 10,
     justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
     width: "100%",
   },
 });
