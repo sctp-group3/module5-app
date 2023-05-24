@@ -65,7 +65,7 @@ export default function App() {
         <PaperProvider>
           <StatusBar barStyle="default" />
           <View style={styles.container}>
-            <Header onSubmit={onSubmit} />
+            <Header onSubmit={onSubmit} targetCity={targetCity} ></Header>
             <BottomNavigation
               navigationState={{ index, routes }}
               onIndexChange={setIndex}
@@ -86,4 +86,3 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
   },
 });
-
