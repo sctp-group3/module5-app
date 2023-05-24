@@ -19,7 +19,7 @@ const HourlyWeatherScreen = ({ weatherData }) => {
               <View style={styles.hour}>
                 <Text>{dt.toLocaleTimeString().replace(/:\d+ /, " ")}</Text>
                 <Text>
-                  {Math.round(((hour.item.main.temp - 32) * 5) / 9)}°C
+                  {Math.round(hour.item.main.temp)}°C
                 </Text>
                 <Image
                   style={styles.smallIcon}
