@@ -78,6 +78,7 @@ const SearchBar = ({ onSubmit, favourites, addFavourite, deleteFavourite }) => {
       closeOnSubmit={false}
       onSelectItem={handleSelectedItem}
       onChangeText={handleTextChange}
+      debounce={200}
       renderItem={renderItem}
       textInputProps={{
         placeholder: "Search for a city...",
