@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, Fragment, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import cityData from "../data/cities.json";
@@ -16,20 +16,9 @@ const SearchBar = ({ onSubmit, favourites, addFavourite, deleteFavourite }) => {
     ...item,
   }));
 
-  const filterData = (query) => {
-    if (!query) {
-      return [];
-    }
-    const filteredCities = citiesList.filter((city) => {
-      return city.title.toLowerCase().includes(query.toLowerCase());
-    });
-    return filteredCities.slice(0, 12);
-  };
-
-  const handleTextChange = (text) => {
-    const suggestions = filterData(text);
-    setSuggestionsList(suggestions);
-  };
+  useEffect(() => {
+    setSuggestionsList(citiesList);
+  }, []);
 
   const handleSelectedItem = (item) => {
     if (!item) {
@@ -60,7 +49,6 @@ const SearchBar = ({ onSubmit, favourites, addFavourite, deleteFavourite }) => {
         <View style={styles.itemTextContainer}>
           <Text numberOfLines={2}>{item.title}</Text>
         </View>
-
         <IconButton
           icon={isFavorite ? "star" : "star-outline"}
           size={20}
@@ -75,10 +63,8 @@ const SearchBar = ({ onSubmit, favourites, addFavourite, deleteFavourite }) => {
     <AutocompleteDropdown
       clearOnFocus={false}
       closeOnBlur={true}
-      closeOnSubmit={false}
+      closeOnSubmit={true}
       onSelectItem={handleSelectedItem}
-      onChangeText={handleTextChange}
-      debounce={200}
       renderItem={renderItem}
       textInputProps={{
         placeholder: "Search for a city...",
@@ -100,6 +86,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     marginRight: 0,
+  },
+  emptyResultContainer: {
+    flex: 1,
+    alignItems: "center",
+    padding: 10,
   },
 });
 
