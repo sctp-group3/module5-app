@@ -34,7 +34,7 @@ const Header = ({ onSubmit }) => {
   };
 
   const handleAddFavourite = (item) => {
-    console.log("Adding favourite...");
+    //console.log("Adding favourite...");
     setFavourites([...favourites, item]);
   };
 

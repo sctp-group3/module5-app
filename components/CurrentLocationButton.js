@@ -27,7 +27,7 @@ const CurrentLocationButton = ({ onSubmit }) => {
 
       onSubmit(city);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

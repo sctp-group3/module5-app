@@ -45,13 +45,13 @@ export default function App() {
       };
       const data = await getUrl(searchParam);
       setWeatherData(data);
-      console.log("data :", data);
+      //console.log("data :", data);
       setLocation({
         latitude: data.current.lat,
         longitude: data.current.lon,
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

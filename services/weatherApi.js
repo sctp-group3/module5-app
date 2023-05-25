@@ -77,7 +77,7 @@ const getUrl = async (searchParams) => {
       daily: daily.data,
     };
   } catch (error) {
-    console.log(error.message);
+    //console.log(error.message);
   }
 };
 
