@@ -40,32 +40,46 @@ const Header = ({ onSubmit }) => {
 
   return (
     <View style={styles.header}>
-      <View style={{ flex: 1 }}>
-        <SearchBar
+      <View style={styles.topRow}>
+        <View style={styles.searchBarContainer}>
+          <SearchBar
+            onSubmit={handleSubmit}
+            favourites={favourites}
+            addFavourite={handleAddFavourite}
+            deleteFavourite={handleDeleteFavourite}
+          />
+        </View>
+        <CurrentLocationButton onSubmit={handleSubmit} />
+      </View>
+      <View style={styles.bottomRow}>
+        <FavouritesDialog
           onSubmit={handleSubmit}
           favourites={favourites}
-          addFavourite={handleAddFavourite}
-          deleteFavourite={handleDeleteFavourite}
+          deleteFavourites={handleDeleteFavourite}
         />
       </View>
-      <CurrentLocationButton onSubmit={handleSubmit} />
-      <FavouritesDialog
-        onSubmit={handleSubmit}
-        favourites={favourites}
-        deleteFavourites={handleDeleteFavourite}
-      />
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#F5F5F5",
     padding: 10,
-    justifyContent: "flex-start",
+    flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
+  },
+  topRow: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     width: "100%",
+  },
+  bottomRow: {
+    width: "100%",
+  },
+  searchBarContainer: {
+    width: "80%",
   },
 });
 

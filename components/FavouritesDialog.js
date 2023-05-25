@@ -30,7 +30,9 @@ const FavouritesDialog = ({ onSubmit, deleteFavourites, favourites }) => {
   };
   return (
     <View>
-      <IconButton icon="star" onPress={showDialog} mode="contained" />
+      <Button icon="star" onPress={showDialog}>
+        Favorites
+      </Button>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
           <Dialog.Title>
