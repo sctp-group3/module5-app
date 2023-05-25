@@ -9,6 +9,7 @@ import { BottomNavigation, Text, PaperProvider } from "react-native-paper";
 import Header from "./components/Header";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 import { WeatherProvider } from "./contexts/WeatherContext";
+import MapDisplay from "./components/MapDisplay";
 
 export default function App() {
   const [index, setIndex] = React.useState(0);
@@ -18,8 +19,9 @@ export default function App() {
     { key: "currentWeather", title: "Current", focusedIcon: "cloud" },
     { key: "hourlyWeather", title: "Hourly", focusedIcon: "clock" },
     { key: "dailyWeather", title: "Daily", focusedIcon: "calendar" },
+    { key: "mapDisplay", title: "Map", focusedIcon: "map" },
   ]);
-
+  const [location, setLocation] = useState(null);
   const ctx = useContext(WeatherContext);
 
   const renderScene = BottomNavigation.SceneMap({
@@ -32,6 +34,7 @@ export default function App() {
     ),
     hourlyWeather: () => <HourlyWeatherScreen weatherData={weatherData} />,
     dailyWeather: () => <DailyWeatherScreen weatherData={weatherData} />,
+    mapDisplay: () => <MapDisplay location={location} />,
   });
 
   const fetchWeatherData = async (city) => {
@@ -42,7 +45,11 @@ export default function App() {
       };
       const data = await getUrl(searchParam);
       setWeatherData(data);
-      //console.log("data :", data);
+      console.log("data :", data);
+      setLocation({
+        latitude: data.current.lat,
+        longitude: data.current.lon,
+      });
     } catch (error) {
       console.log(error);
     }
