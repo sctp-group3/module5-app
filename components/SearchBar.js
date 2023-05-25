@@ -23,7 +23,7 @@ const SearchBar = ({ onSubmit, favourites, addFavourite, deleteFavourite }) => {
     const filteredCities = citiesList.filter((city) => {
       return city.title.toLowerCase().includes(query.toLowerCase());
     });
-    return filteredCities;
+    return filteredCities.slice(0, 12);
   };
 
   const handleTextChange = (text) => {
