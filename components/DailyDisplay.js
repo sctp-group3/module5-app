@@ -17,7 +17,7 @@ const DailyDisplay = ({ day, index }) => {
         resizeMode={"contain"} 
         style={styles.weatherIcon}
       />
-      <Text style={styles.degree}>{Math.round(day.temp.max)}°F</Text>
+      <Text style={styles.degree}>{day.temp.max.toFixed(1)}{ctx?.isMetric ? "°C" : "°F"}</Text>
     </View>
   );
 };
