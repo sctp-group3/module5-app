@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 const MapDisplay = ({ location }) => {
+  if (!location) return null;
   return (
     <View style={styles.container}>
       <MapView
