@@ -6,7 +6,7 @@ import WeatherContext from "../contexts/WeatherContext";
 
 const CurrentDisplay = ({ weather, targetCity, onSubmit }) => {
   const ctx = useContext(WeatherContext);
-  console.log("weather :", weather);
+  //console.log("weather :", weather);
 
   return (
     <View style={styles.container}>
@@ -28,10 +28,7 @@ const CurrentDisplay = ({ weather, targetCity, onSubmit }) => {
                 <Text style={styles.temperature}>
                   {weather.temp.toFixed(1)}
                 </Text>
-                <UnitsSelector
-                  targetCity={targetCity}
-                  onSubmit={onSubmit}
-                />
+                <UnitsSelector targetCity={targetCity} onSubmit={onSubmit} />
               </View>
             </View>
           </View>

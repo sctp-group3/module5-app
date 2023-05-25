@@ -42,7 +42,7 @@ export default function App() {
       };
       const data = await getUrl(searchParam);
       setWeatherData(data);
-      console.log("data :", data);
+      //console.log("data :", data);
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +50,7 @@ export default function App() {
 
   useEffect(() => {
     if (targetCity) {
-      console.log("item :", targetCity);
+      //console.log("item :", targetCity);
       fetchWeatherData(targetCity);
     }
   }, [targetCity]);
@@ -86,4 +86,3 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
   },
 });
-
