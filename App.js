@@ -57,7 +57,7 @@ export default function App() {
 
   useEffect(() => {
     if (targetCity) {
-      console.log("item :", targetCity);
+      //console.log("item :", targetCity);
       fetchWeatherData(targetCity);
     }
   }, [targetCity]);
@@ -93,4 +93,3 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
   },
 });
-

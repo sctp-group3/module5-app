@@ -8,8 +8,8 @@ import * as Animatable from "react-native-animatable";
 const DailyWeatherScreen = ({ weatherData }) => {
   const firstRow = weatherData?.daily?.list?.slice(0, 3);
   const secondRow = weatherData?.daily?.list?.slice(3, 6);
-  console.log(weatherData);
-  
+  //console.log(weatherData);
+
   return (
     <Screen>
       <Card style={styles.container}>
@@ -43,17 +43,15 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center",  // Add this if the container itself is not centered
+    alignSelf: "center", // Add this if the container itself is not centered
   },
   row: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center",  // Add this if the rows themselves are not centered
+    alignSelf: "center", // Add this if the rows themselves are not centered
     marginBottom: 10,
   },
 });
 
 export default DailyWeatherScreen;
-
-

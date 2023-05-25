@@ -19,7 +19,7 @@ const formatApiResponse = (data, searchParams) => {
     name: backupName,
   } = data;
 
-  console.log(data);
+  //console.log(data);
   const state = searchParams.state ? ` ${searchParams.state},` : "";
   const zip = searchParams.zip ? ` (${searchParams.zip})` : "";
   const nameOverride = searchParams.name || backupName;
