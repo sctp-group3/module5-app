@@ -8,50 +8,64 @@ import * as Animatable from "react-native-animatable";
 const DailyWeatherScreen = ({ weatherData }) => {
   const firstRow = weatherData?.daily?.list?.slice(0, 3);
   const secondRow = weatherData?.daily?.list?.slice(3, 6);
-  //console.log(weatherData);
-
+  console.log(weatherData);
+  
   return (
     <Screen>
-      <Card style={styles.container}>
-        <Animatable.View animation="fadeIn" duration={500} delay={200}>
-          <Card.Content>
-            {!weatherData && <Text>No city selected</Text>}
-            {weatherData && (
-              <View>
-                <View style={styles.row}>
-                  {firstRow.map((day, index) => (
-                    <DailyDisplay day={day} index={index} key={day.dt} />
-                  ))}
+      <View style={styles.container}>
+        <Text style={styles.subtitle}>Daily Forecast</Text>
+        <Card>
+          <Animatable.View animation="fadeIn" duration={500} delay={200}>
+            <Card.Content>
+              {!weatherData && <Text>No city selected</Text>}
+              {weatherData && (
+                <View>
+                  <View style={styles.row}>
+                    {firstRow.map((day, index) => (
+                      <DailyDisplay day={day} index={index} key={day.dt} />
+                    ))}
+                  </View>
+                  <View style={styles.row}>
+                    {secondRow.map((day, index) => (
+                      <DailyDisplay day={day} index={index} key={day.dt} />
+                    ))}
+                  </View>
                 </View>
-                <View style={styles.row}>
-                  {secondRow.map((day, index) => (
-                    <DailyDisplay day={day} index={index} key={day.dt} />
-                  ))}
-                </View>
-              </View>
-            )}
-          </Card.Content>
-        </Animatable.View>
-      </Card>
+              )}
+            </Card.Content>
+          </Animatable.View>
+        </Card>
+      </View>
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {  // Add this style to center the subtitle and container
+    alignItems: "center",
+  },
   container: {
     opacity: 0.8,
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center", // Add this if the container itself is not centered
+    alignSelf: "center",  // Add this if the container itself is not centered
   },
   row: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center", // Add this if the rows themselves are not centered
+    alignSelf: "center",  // Add this if the rows themselves are not centered
     marginBottom: 10,
+  },
+  subtitle: {  // Add this style for the subtitle
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: "center",
+    marginBottom: 20,
   },
 });
 
 export default DailyWeatherScreen;
+
+
