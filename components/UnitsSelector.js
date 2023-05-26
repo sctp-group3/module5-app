@@ -1,33 +1,58 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import WeatherContext from "../contexts/WeatherContext";
 
-function UnitsSelector() {
+function UnitsSelector({ targetCity, onSubmit }) {
   // const [activeUnits, setActiveUnits] = useState('metric');
   const ctx = useContext(WeatherContext);
 
   const handleClick = (selectedUnits) => {
     ctx.handleChangeUnits(selectedUnits);
+    onSubmit({ ...targetCity, units: selectedUnits });
   };
 
   return (
-    <div className="flex flex-col text-blue-300">
-      <button
-        className={`text-5xl py-2 mx-2  ${
-          !ctx?.isMetric ? "text-blue-800" : ""
-        }`}
-        onClick={() => handleClick("imperial")}
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={[
+          styles.button,
+          !ctx.isMetric ? styles.activeButton : null,
+        ]}
+        onPress={() => handleClick("imperial")}
       >
-        <Text>°F</Text>
-      </button>
-      <button
-        className={`text-5xl py-2 mx-2 'text-blue-500' ${
-          ctx?.isMetric ? "text-blue-800" : ""
-        }`}
-        onClick={() => handleClick("metric")}
+        <Text style={styles.buttonText}>°F</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          styles.button,
+          ctx.isMetric ? styles.activeButton : null,
+        ]}
+        onPress={() => handleClick("metric")}
       >
-        <Text>°C</Text>
-      </button>
-    </div>
+        <Text style={styles.buttonText}>°C</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  button: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginHorizontal: 8,
+    backgroundColor: "#f0f0f0",
+    borderRadius: 4,
+  },
+  activeButton: {
+    backgroundColor: "#0058a3",
+  },
+  buttonText: {
+    fontSize: 24,
+    color: "white",
+  },
+});
 export default UnitsSelector;
