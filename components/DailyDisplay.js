@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import WeatherContext from "../contexts/WeatherContext";
-import moment from 'moment';
+import moment from "moment";
 
 const DailyDisplay = ({ day, index }) => {
   const ctx = useContext(WeatherContext);
@@ -14,10 +14,13 @@ const DailyDisplay = ({ day, index }) => {
         source={{
           uri: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
         }}
-        resizeMode={"contain"} 
+        resizeMode={"contain"}
         style={styles.weatherIcon}
       />
-      <Text style={styles.degree}>{day.temp.max.toFixed(1)}{ctx?.isMetric ? "°C" : "°F"}</Text>
+      <Text style={styles.degree}>
+        {day.temp.max.toFixed(1)}
+        {ctx?.isMetric ? "°C" : "°F"}
+      </Text>
     </View>
   );
 };
@@ -51,5 +54,3 @@ const styles = StyleSheet.create({
 });
 
 export default DailyDisplay;
-
-

@@ -42,6 +42,7 @@ const formatApiResponse = (data, searchParams) => {
 
 const getUrl = async (searchParams) => {
   try {
+    const startTime = performance.now();
     const [current, hourly, daily] = await Promise.all([
       baseAPI.get("/weather", {
         params: {
@@ -71,6 +72,9 @@ const getUrl = async (searchParams) => {
       }),
     ]);
     let formattedData = formatApiResponse(current.data, searchParams);
+    const endTime = performance.now(); // End the timer
+    const elapsed = endTime - startTime; // Calculate the elapsed time in milliseconds
+    console.log(`API Call completed in ${elapsed} ms`);
     return {
       current: formattedData,
       hourly: hourly.data,

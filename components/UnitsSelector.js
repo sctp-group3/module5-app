@@ -14,19 +14,13 @@ function UnitsSelector({ targetCity, onSubmit }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={[
-          styles.button,
-          !ctx.isMetric ? styles.activeButton : null,
-        ]}
+        style={[styles.button, !ctx.isMetric ? styles.activeButton : null]}
         onPress={() => handleClick("imperial")}
       >
         <Text style={styles.buttonText}>°F</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[
-          styles.button,
-          ctx.isMetric ? styles.activeButton : null,
-        ]}
+        style={[styles.button, ctx.isMetric ? styles.activeButton : null]}
         onPress={() => handleClick("metric")}
       >
         <Text style={styles.buttonText}>°C</Text>
@@ -39,6 +33,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     alignItems: "center",
+    opacity: 0.8,
   },
   button: {
     paddingVertical: 8,
@@ -51,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0058a3",
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 18,
     color: "white",
   },
 });

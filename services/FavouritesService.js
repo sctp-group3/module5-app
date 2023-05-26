@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getFavourites = async (callback) => {
   try {
-    console.log("Getting favourites...");
+    // console.log("Getting favourites...");
     const jsonValue = await AsyncStorage.getItem("favourites");
     const data = jsonValue != null ? JSON.parse(jsonValue) : [];
     callback(data);
@@ -20,7 +20,7 @@ export const saveFavourites = async (favourites) => {
   try {
     const favouritesString = JSON.stringify(favourites);
     await AsyncStorage.setItem("favourites", favouritesString);
-    console.log("Favourites saved successfully.");
+    // console.log("Favourites saved successfully.");
   } catch (error) {
     console.log("Error saving favourites:", error);
   }
